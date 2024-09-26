@@ -131,6 +131,9 @@ const updateUserByAdmin = async (req, res) => {
   }
 };
 
+
+
+
 module.exports = {
   getUserProfile,
   updateUserProfile,
@@ -138,4 +141,6 @@ module.exports = {
   deleteUser,
   getUserById,
   updateUserByAdmin,
+  
+  
 };
