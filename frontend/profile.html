@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>User Profile</title>
+</head>
+<body>
+    <div id="app">
+        <h1>User Profile</h1>
+        <form id="profileForm">
+            <textarea id="bio" placeholder="Write a brief bio..."></textarea>
+            <input type="text" id="profilePicture" placeholder="Profile Picture URL">
+            <button type="submit">Update Profile</button>
+            <h2>Friends</h2>
+<ul id="friendList"></ul>
+<form id="friendRequestForm">
+    <input type="text" id="friendId" placeholder="Friend's User ID">
+    <button type="submit">Send Friend Request</button>
+</form>
+        </form>
+        <div id="profileInfo"></div>
+    </div>
+    <script src="profile.js"></script>
+</body>
+</html>

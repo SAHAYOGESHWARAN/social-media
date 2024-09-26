@@ -1,49 +1,38 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const postSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  text: {
-    type: String,
-    required: true,
-    maxlength: 500
-  },
-  image: {
-    type: String,
-  },
-  likes: [
-    {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    }
-  ],
-  comments: [
-    {
-      user: {
+const postSchema = new mongoose.Schema({
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
-      },
-      text: {
+        required: true,
+    },
+    content: {
         type: String,
-        required: true
-      },
-      date: {
-        type: Date,
-        default: Date.now
-      }
-    }
-  ],
-  date: {
-    type: Date,
-    default: Date.now
-  }
+        required: true,
+    },
+    comments: [{
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        comment: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
+        likes: [{
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+                required: true,
+            },
+        }],
+        
+    }],
 });
 
 module.exports = mongoose.model('Post', postSchema);
