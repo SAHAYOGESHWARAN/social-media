@@ -1,4 +1,5 @@
 const Profile = require('../models/Profile');
+const Notification = require('../models/Notification');
 
 exports.createOrUpdateProfile = async (req, res) => {
     const { bio, profilePicture } = req.body;
@@ -50,4 +51,17 @@ exports.acceptFriendRequest = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Error accepting friend request' });
     }
+};
+
+exports.sendFriendRequest = async (req, res) => {
+    // existing logic...
+    
+    // Create notification
+    const notification = new Notification({
+        userId: friendId,
+        message: `${req.user.username} sent you a friend request!`
+    });
+    await notification.save();
+    
+    res.json({ message: 'Friend request sent!' });
 };

@@ -65,4 +65,27 @@ async function sendFriendRequest(event) {
     loadProfile(); // Refresh the profile to see updated friends
 }
 
+async function loadProfile() {
+    // existing code...
+    loadNotifications();
+}
+
+async function loadNotifications() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('/api/notifications', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    const notifications = await response.json();
+    const notificationList = document.getElementById('notificationList');
+    notificationList.innerHTML = '';
+    
+    notifications.forEach(notification => {
+        const li = document.createElement('li');
+        li.textContent = notification.message;
+        notificationList.appendChild(li);
+    });
+}
+
 document.getElementById('friendRequestForm').addEventListener('submit', sendFriendRequest);
