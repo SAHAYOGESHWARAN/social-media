@@ -1,3 +1,5 @@
+// models/Post.js
+
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
@@ -33,10 +35,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    comments: [commentSchema], // Use the commentSchema here
-    media: {  // Move media here
-        type: String, // Store the path of the uploaded file
-        default: null, // Default to null if no media is uploaded
+    comments: [commentSchema],
+    media: {
+        type: String,
+        default: null,
     },
 }, { timestamps: true });
 
