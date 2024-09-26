@@ -88,4 +88,28 @@ async function loadNotifications() {
     });
 }
 
+
+const ProfileSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    profilePicture: { type: String }, // New field
+});
+
+document.getElementById('updateProfileButton').addEventListener('click', updateProfile);
+
+async function updateProfile() {
+    const formData = new FormData();
+    formData.append('profilePicture', document.getElementById('profilePictureInput').files[0]);
+
+    const response = await fetch(`/api/profile/${userId}`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+    });
+    const updatedProfile = await response.json();
+    displayProfile(updatedProfile);
+}
+
+
 document.getElementById('friendRequestForm').addEventListener('submit', sendFriendRequest);

@@ -34,22 +34,24 @@ async function loadPosts() {
         });
     });
 }
+async function createPost() {
+    const formData = new FormData();
+    formData.append('content', document.getElementById('contentInput').value);
+    formData.append('media', document.getElementById('mediaInput').files[0]);
 
-async function createPost(event) {
-    event.preventDefault();
-    const content = document.getElementById('postContent').value;
-    const token = localStorage.getItem('token');
-
-    await fetch('/api/posts', {
+    const response = await fetch('/api/posts', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ content }),
+        body: formData
     });
-    loadPosts();
+    const post = await response.json();
+    displayPost(post);
+    document.getElementById('contentInput').value = '';
+    document.getElementById('mediaInput').value = '';
 }
+
 
 async function likePost(postId) {
     const token = localStorage.getItem('token');

@@ -65,3 +65,13 @@ exports.sendFriendRequest = async (req, res) => {
     
     res.json({ message: 'Friend request sent!' });
 };
+
+
+exports.updateProfile = async (req, res) => {
+    const updates = {};
+    if (req.file) {
+        updates.profilePicture = req.file.path;
+    }
+    const profile = await Profile.findByIdAndUpdate(req.params.id, updates, { new: true });
+    res.json(profile);
+};

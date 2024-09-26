@@ -48,3 +48,14 @@ exports.likePost = async (req, res) => {
         res.status(500).json({ message: 'Error liking post' });
     }
 };
+
+
+exports.createPost = async (req, res) => {
+    const post = new Post({
+        content: req.body.content,
+        media: req.file.path,
+        userId: req.user.id
+    });
+    await post.save();
+    res.status(201).json(post);
+};
